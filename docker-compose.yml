@@ -1,9 +1,7 @@
 services:
   app:
-    image: message-hub:latest
-    build:
-      context: .
-    container_name: messagehub
+    image: message-hub
+    container_name: message-hub
     restart: unless-stopped
     ports:
       - "3003:3000"
