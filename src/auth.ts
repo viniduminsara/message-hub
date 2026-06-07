@@ -3,12 +3,19 @@ import Google from "next-auth/providers/google"
 import Credentials from "next-auth/providers/credentials"
 import { MongoDBAdapter } from "@auth/mongodb-adapter"
 import bcrypt from "bcryptjs"
-import { MongoClient } from "@/lib/db"
+import { MongoClient as MongoClientClass } from "mongodb"
 
-const client = new MongoClient(process.env.DATABASE_URL!)
+let _client: MongoClientClass | undefined
+
+function getClient() {
+  if (!_client) {
+    _client = new MongoClientClass(process.env.DATABASE_URL!)
+  }
+  return _client
+}
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  adapter: MongoDBAdapter(client),
+  adapter: MongoDBAdapter(getClient()),
   session: { strategy: "jwt" },
   pages: {
     signIn: "/login",
@@ -32,7 +39,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const email = credentials.email as string
         const password = credentials.password as string
 
-        const dbClient = await client.connect()
+        const dbClient = await getClient().connect()
         const db = dbClient.db()
         const user = await db
           .collection("users")
