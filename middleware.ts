@@ -1,4 +1,4 @@
-import { auth } from "@/auth"
+import { getToken } from "next-auth/jwt"
 import { NextRequest, NextResponse } from "next/server"
 
 export async function middleware(req: NextRequest) {
@@ -13,9 +13,14 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next()
   }
 
-  const session = await auth()
+  const token = await getToken({
+    req,
+    secret: process.env.AUTH_SECRET,
+    secureCookie: true,
+    cookieName: "__Secure-next-auth.session-token",
+  })
 
-  if (!session) {
+  if (!token) {
     const loginUrl = new URL("/login", req.url)
     loginUrl.searchParams.set("callbackUrl", pathname)
     return NextResponse.redirect(loginUrl)
