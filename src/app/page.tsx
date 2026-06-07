@@ -98,9 +98,9 @@ export default async function HomePage() {
                       <span className="size-2.5 rounded-full bg-green-500/80" />
                       <span className="ml-2 text-[11px] text-muted-foreground font-mono">POST /api/forms/abc123def456/submit</span>
                     </div>
-                    <pre className="p-4 overflow-x-auto text-sm">
+                    <pre className="p-4 overflow-x-auto text-sm text-left">
                       <code className="font-mono text-[13px] leading-relaxed">
-                        <span className="text-purple-400">fetch</span>(<span className="text-amber-300/90">&quot;https://api.messagehub.dev/forms/abc123def456/submit&quot;</span>, {"{"}
+                        <span className="text-purple-400">fetch</span>(<span className="text-amber-300/90">&quot;https://messagehub.viniduminsara.dev/forms/abc123def456/submit&quot;</span>, {"{"}
                         <br />
                         &nbsp;&nbsp;<span className="text-purple-400">method</span>: <span className="text-green-400/90">&quot;POST&quot;</span>,
                         <br />
